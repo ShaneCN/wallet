@@ -24,14 +24,14 @@ public interface UserAccountRepo {
     UserAccount lockByUserId(String userId) throws Exception;
 
     /**
-     * 插入新的额度账户
+     * 插入新的额度账户，并记流水
      *
      * @param account 额度账户
      */
     void store(UserAccount account, String bizNo) throws Exception;
 
     /**
-     * 更新额度账户
+     * 更新额度账户，并记流水
      *
      * @param account 额度账户
      */

@@ -5,13 +5,14 @@ import com.cobo.wallet.infras.enums.CurrencyEnum;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
 @Data
 @Builder
-public class UserAccount {
+public class UserAccount implements Serializable {
 
     private Long id;
 

@@ -18,12 +18,17 @@ import java.util.Objects;
 @Component
 public class UserAccountServiceImpl implements UserAccountService {
 
+    /** 用户账户repo */
     @Resource
     private UserAccountRepo userAccountRepo;
 
+    /** 事务模板 */
     @Resource
     private TransactionTemplate transactionTemplate;
 
+    /**
+     * @see UserAccountService#query(UserAccountOptContext)
+     */
     @Override
     public UserAccount query(UserAccountOptContext context) throws Exception {
         if (Objects.isNull(context) || StringUtils.isEmpty(context.getUserId())) {
@@ -33,6 +38,9 @@ public class UserAccountServiceImpl implements UserAccountService {
         return queryWithCreate(context);
     }
 
+    /**
+     * @see UserAccountService#flowIn(UserAccountOptContext) 
+     */
     @Override
     public void flowIn(UserAccountOptContext context) throws Exception {
 
@@ -54,6 +62,9 @@ public class UserAccountServiceImpl implements UserAccountService {
         });
     }
 
+    /**
+     * @see UserAccountService#flowOut(UserAccountOptContext)
+     */
     @Override
     public void flowOut(UserAccountOptContext context) throws Exception {
 
@@ -75,6 +86,13 @@ public class UserAccountServiceImpl implements UserAccountService {
         });
     }
 
+    /**
+     * 查询账户，不存在时，抛异常
+     *
+     * @param context 限界上下文
+     * @return 账户
+     * @throws Exception 账户不存在时，抛异常
+     */
     private UserAccount queryWithThrow(UserAccountOptContext context) throws Exception {
         UserAccount queryAccount = userAccountRepo.queryByUserId(context.getUserId());
         if (Objects.isNull(queryAccount)) {
@@ -83,6 +101,13 @@ public class UserAccountServiceImpl implements UserAccountService {
         return queryAccount;
     }
 
+    /**
+     * 查询账户，不存在时，构造一个
+     *
+     * @param context 限界上下文
+     * @return 账户信息
+     * @throws Exception
+     */
     private UserAccount queryWithCreate(UserAccountOptContext context) throws Exception {
 
         UserAccount queryAccount = userAccountRepo.queryByUserId(context.getUserId());
@@ -104,7 +129,12 @@ public class UserAccountServiceImpl implements UserAccountService {
         return userAccountRepo.queryByUserId(context.getUserId());
     }
 
-
+    /**
+     * 资产记增，无事务
+     *
+     * @param context 界限上下文
+     * @throws Exception
+     */
     private void doIncreaseWithThrow(UserAccountOptContext context) throws Exception {
         // 1. 加锁
         UserAccount userAccount = userAccountRepo.lockByUserId(context.getUserId());
@@ -119,6 +149,12 @@ public class UserAccountServiceImpl implements UserAccountService {
         userAccountRepo.update(userAccount, context, OptTypeEnum.INCRE);
     }
 
+    /**
+     * 资产记减
+     *
+     * @param context
+     * @throws Exception
+     */
     private void doDecreaseWithThrow(UserAccountOptContext context) throws Exception {
         // 1. 加锁
         UserAccount userAccount = userAccountRepo.lockByUserId(context.getUserId());
