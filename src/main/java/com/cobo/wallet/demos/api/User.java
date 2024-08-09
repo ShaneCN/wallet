@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cobo.wallet.demos.web;
+package com.cobo.wallet.demos.api;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>

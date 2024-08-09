@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cobo.wallet.demos.web;
+package com.cobo.wallet.demos.api;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
