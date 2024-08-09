@@ -1,6 +1,9 @@
 package com.cobo.wallet.infras.dao.mapper;
 
 import com.cobo.wallet.infras.dao.entity.AccountOptFlowDO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AccountOptFlowDOMapper {
     /**
@@ -50,4 +53,6 @@ public interface AccountOptFlowDOMapper {
      * @mbg.generated Fri Aug 09 22:55:58 CST 2024
      */
     int updateByPrimaryKey(AccountOptFlowDO record);
+
+    List<AccountOptFlowDO> selectByUserIdAndCurrency(@Param("userId") String userId, @Param("currency") String currency);
 }
