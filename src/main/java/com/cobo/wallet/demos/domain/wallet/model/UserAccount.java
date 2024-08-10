@@ -14,16 +14,22 @@ import java.util.Objects;
 @Builder
 public class UserAccount implements Serializable {
 
+    /** 主键ID */
     private Long id;
 
+    /** 用户ID */
     private String userId;
 
+    /** 金额 */
     private BigDecimal amount;
 
+    /** 币种 */
     private CurrencyEnum currency;
 
+    /** 创建时间 */
     private Date gmtCreate;
 
+    /** 修改时间 */
     private Date gmtModified;
 
     /**
@@ -66,6 +72,12 @@ public class UserAccount implements Serializable {
         return userAccount;
     }
 
+    /**
+     * 模型转换
+     *
+     * @param userAccount
+     * @return
+     */
     public static UserAccountDO toDO(UserAccount userAccount) {
         if (Objects.isNull(userAccount)) {
             return null;

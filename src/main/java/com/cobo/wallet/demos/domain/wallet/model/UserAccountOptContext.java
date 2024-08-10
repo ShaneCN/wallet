@@ -10,24 +10,16 @@ import java.math.BigDecimal;
 @Builder
 public class UserAccountOptContext {
 
-    /**
-     * 用户id
-     */
+    /** 用户id */
     private String userId;
 
-    /**
-     * 币种
-     */
+    /** 币种 */
     private CurrencyEnum currencyEnum;
 
-    /**
-     * 金额
-     */
+    /** 金额 */
     private BigDecimal amount;
 
-    /**
-     * 业务单据号
-     */
+    /** 业务单据号 */
     private String bizNo;
 
 }

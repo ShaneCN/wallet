@@ -54,6 +54,7 @@ public class WalletController {
 
     /**
      * 查询记录
+     * 逻辑比较简单，直接调用mapper
      *
      * @param userId 用户id
      * @param currency 币种
