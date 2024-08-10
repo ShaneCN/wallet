@@ -2,6 +2,7 @@ package com.cobo.wallet.demos.domain.wallet.repo;
 
 import com.cobo.wallet.demos.domain.wallet.model.UserAccount;
 import com.cobo.wallet.demos.domain.wallet.model.UserAccountOptContext;
+import com.cobo.wallet.infras.enums.CurrencyEnum;
 import com.cobo.wallet.infras.enums.OptTypeEnum;
 
 public interface UserAccountRepo {
@@ -12,7 +13,7 @@ public interface UserAccountRepo {
      * @param userId 用户id
      * @return 额度账户
      */
-    UserAccount queryByUserId(String userId) throws Exception;
+    UserAccount queryByUserId(String userId, CurrencyEnum currencyEnum) throws Exception;
 
     /**
      * 根据用户id加锁
@@ -21,7 +22,7 @@ public interface UserAccountRepo {
      * @param userId 用户id
      * @return 额度账户
      */
-    UserAccount lockByUserId(String userId) throws Exception;
+    UserAccount lockByUserId(String userId, CurrencyEnum currencyEnum) throws Exception;
 
     /**
      * 插入新的额度账户，并记流水

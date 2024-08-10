@@ -6,6 +6,7 @@ import com.cobo.wallet.infras.dao.entity.AccountOptFlowDO;
 import com.cobo.wallet.infras.dao.entity.UserAccountDO;
 import com.cobo.wallet.infras.dao.mapper.AccountOptFlowDOMapper;
 import com.cobo.wallet.infras.dao.mapper.UserAccountDOMapper;
+import com.cobo.wallet.infras.enums.CurrencyEnum;
 import com.cobo.wallet.infras.enums.OptTypeEnum;
 import org.springframework.stereotype.Component;
 
@@ -23,13 +24,13 @@ public class UserAccountRepoImpl implements UserAccountRepo {
 
 
     @Override
-    public UserAccount queryByUserId(String userId) throws Exception {
-        return UserAccount.fromDO(userAccountDOMapper.selectByUserId(userId));
+    public UserAccount queryByUserId(String userId, CurrencyEnum currencyEnum) throws Exception {
+        return UserAccount.fromDO(userAccountDOMapper.selectByUserId(userId, currencyEnum.getName()));
     }
 
     @Override
-    public UserAccount lockByUserId(String userId) throws Exception {
-        return UserAccount.fromDO(userAccountDOMapper.lockByUserIdNoWait(userId));
+    public UserAccount lockByUserId(String userId, CurrencyEnum currencyEnum) throws Exception {
+        return UserAccount.fromDO(userAccountDOMapper.lockByUserIdNoWait(userId, currencyEnum.getName()));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class UserAccountRepoImpl implements UserAccountRepo {
             throw new Exception("尝试插入空记录");
         }
         userAccountDOMapper.insert(insertDO);
-        UserAccountDO queryDO = userAccountDOMapper.selectByUserId(account.getUserId());
+        UserAccountDO queryDO = userAccountDOMapper.selectByUserId(account.getUserId(), account.getCurrency().getName());
 
         AccountOptFlowDO accountOptFlowDO = new AccountOptFlowDO();
         accountOptFlowDO.setBizNo(bizNo);

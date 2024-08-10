@@ -1,6 +1,7 @@
 package com.cobo.wallet.infras.dao.mapper;
 
 import com.cobo.wallet.infras.dao.entity.UserAccountDO;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserAccountDOMapper {
     /**
@@ -51,7 +52,7 @@ public interface UserAccountDOMapper {
      */
     int updateByPrimaryKey(UserAccountDO record);
 
-    UserAccountDO selectByUserId(String userId);
+    UserAccountDO selectByUserId(@Param("userId") String userId, @Param("currency") String currency);
 
-    UserAccountDO lockByUserIdNoWait(String userId);
+    UserAccountDO lockByUserIdNoWait(@Param("userId") String userId, @Param("currency") String currency);
 }

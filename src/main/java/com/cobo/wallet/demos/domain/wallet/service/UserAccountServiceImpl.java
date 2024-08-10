@@ -94,7 +94,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @throws Exception 账户不存在时，抛异常
      */
     private UserAccount queryWithThrow(UserAccountOptContext context) throws Exception {
-        UserAccount queryAccount = userAccountRepo.queryByUserId(context.getUserId());
+        UserAccount queryAccount = userAccountRepo.queryByUserId(context.getUserId(), context.getCurrencyEnum());
         if (Objects.isNull(queryAccount)) {
             throw new Exception("账户不存在");
         }
@@ -110,7 +110,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     private UserAccount queryWithCreate(UserAccountOptContext context) throws Exception {
 
-        UserAccount queryAccount = userAccountRepo.queryByUserId(context.getUserId());
+        UserAccount queryAccount = userAccountRepo.queryByUserId(context.getUserId(), context.getCurrencyEnum());
 
         if (Objects.nonNull(queryAccount)) {
             return queryAccount;
@@ -126,7 +126,7 @@ public class UserAccountServiceImpl implements UserAccountService {
                         .build()
                 , context.getBizNo());
 
-        return userAccountRepo.queryByUserId(context.getUserId());
+        return userAccountRepo.queryByUserId(context.getUserId(), context.getCurrencyEnum());
     }
 
     /**
@@ -137,7 +137,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     private void doIncreaseWithThrow(UserAccountOptContext context) throws Exception {
         // 1. 加锁
-        UserAccount userAccount = userAccountRepo.lockByUserId(context.getUserId());
+        UserAccount userAccount = userAccountRepo.lockByUserId(context.getUserId(), context.getCurrencyEnum());
 
         // 2. 判断数据是否合法
         if (Objects.isNull(userAccount)) {
@@ -157,7 +157,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     private void doDecreaseWithThrow(UserAccountOptContext context) throws Exception {
         // 1. 加锁
-        UserAccount userAccount = userAccountRepo.lockByUserId(context.getUserId());
+        UserAccount userAccount = userAccountRepo.lockByUserId(context.getUserId(), context.getCurrencyEnum());
 
         // 2. 判断数据是否合法
         if (Objects.isNull(userAccount)) {

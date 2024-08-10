@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class WalletController {
@@ -65,7 +67,14 @@ public class WalletController {
     public Result<List<AccountOptFlowDO>> queryRecords(@PathVariable("userId") String userId, @PathVariable("currency") String currency) {
         Result<List<AccountOptFlowDO>> result = new Result<>();
         try {
-            List<AccountOptFlowDO> accountOptFlowDOS = accountOptFlowDOMapper.selectByUserIdAndCurrency(userId, currency);
+            List<AccountOptFlowDO> accountOptFlowDOS = accountOptFlowDOMapper.selectByUserIdAndCurrency(userId, currency)
+                    .stream()
+                    .sorted(new Comparator<AccountOptFlowDO>() {
+                        @Override
+                        public int compare(AccountOptFlowDO o1, AccountOptFlowDO o2) {
+                            return o2.getGmtModified().compareTo(o1.getGmtModified());
+                        }
+                    }).collect(Collectors.toList());
             result.success(sucMsg, accountOptFlowDOS);
         } catch (Exception e) {
             result.fail(e.getMessage());
